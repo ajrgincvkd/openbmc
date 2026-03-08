@@ -1,0 +1,60 @@
+# Example configuration snippets for kernel and bootloader variants
+# 
+# Add these to your build configuration as needed
+
+# ============================================================================
+# EXAMPLE 1: Using only Upstream versions (Linux 6.1 + U-Boot 2024.01)
+# ============================================================================
+# KERNEL_VARIANT = "upstream"
+# BOOTLOADER_VARIANT = "upstream"
+
+
+# ============================================================================
+# EXAMPLE 2: Using only OpenBMC versions (Default - Linux 6.18 + U-Boot 2016.07)
+# ============================================================================
+# KERNEL_VARIANT = "openbmc"
+# BOOTLOADER_VARIANT = "openbmc"
+
+
+# ============================================================================
+# EXAMPLE 3: Mixed configuration (Upstream kernel + OpenBMC U-Boot)
+# ============================================================================
+# KERNEL_VARIANT = "upstream"
+# BOOTLOADER_VARIANT = "openbmc"
+
+
+# ============================================================================
+# EXAMPLE 4: Building both versions using multiconfig
+# ============================================================================
+# In build command:
+#   BBMULTICONFIG="openbmc upstream" bitbake \
+#     multiconfig:openbmc:core-image-minimal \
+#     multiconfig:upstream:core-image-minimal
+#
+# Or add to local.conf:
+#   BBMULTICONFIG = "openbmc upstream"
+
+
+# ============================================================================
+# UPSTREAM KERNEL CUSTOMIZATION (if using KERNEL_VARIANT = "upstream")
+# ============================================================================
+# Update the defconfig for Linux 6.1 in:
+#   meta-aspeed/recipes-kernel/linux/linux-upstream/defconfig
+#
+# Add any kernel-level features needed for your Aspeed platform:
+# - Example: CONFIG_IPMI_HANDLER=y for IPMI support
+# - Example: CONFIG_I2C=y for I2C support
+
+
+# ============================================================================
+# UPSTREAM U-BOOT CUSTOMIZATION (if using BOOTLOADER_VARIANT = "upstream")
+# ============================================================================
+# For U-Boot 2024.01, configure the UBOOT_MACHINE for your platform:
+#
+# Common Aspeed U-Boot targets:
+# - ast2500_defconfig
+# - ast2600_defconfig
+# - ast2700_defconfig
+#
+# You can override this in your machine configuration:
+#   UBOOT_MACHINE:pn-u-boot-upstream = "ast2600_defconfig"
